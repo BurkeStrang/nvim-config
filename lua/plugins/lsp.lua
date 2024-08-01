@@ -7,7 +7,6 @@ return {
     "mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "seblj/roslyn.nvim",
-    "Decodetalkers/csharpls-extended-lsp.nvim"
   },
   ---@class PluginLspOpts
   opts = function()
@@ -157,10 +156,6 @@ return {
       setup = {
         require("roslyn").setup({
           config = {
-            handlers = {
-              ["textDocument/definition"] = require("csharpls_extended").handler,
-              ["textDocument/typeDefinition"] = require("csharpls_extended").handler,
-            },
             -- Here you can pass in any options that that you would like to pass to `vim.lsp.start`
             -- The only options that I explicitly override are, which means won't have any effect of setting here are:
             --     - `name`
@@ -168,11 +163,10 @@ return {
             --     - `root_dir`
             --     - `on_init`
           },
-          exe = vim.fs.joinpath(
-            vim.fn.stdpath("data") --[[@as string]],
-            "roslyn",
-            "Microsoft.CodeAnalysis.LanguageServer.dll"
-          ),
+          exe = {
+            "dotnet",
+            vim.fs.joinpath(vim.fn.stdpath("data"), "roslyn", "Microsoft.CodeAnalysis.LanguageServer.dll"),
+          },
           -- NOTE: Set `filewatching` to false if you experience performance problems.
           -- Defaults to true, since turning it off is a hack.
           -- If you notice that the server is _super_ slow, it is probably because of file watching
