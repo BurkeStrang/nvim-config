@@ -3,15 +3,15 @@ return {
   opts = {
     filesystem = {
       filtered_items = {
-        --visible = true,
+        visible = true,
         hide_dotfiles = false,
-        hide_gitignored = true,
-        hide_by_name = {
-          ".github",
-          ".gitignore",
-          "package-lock.json",
-        },
-        never_show = { ".git" },
+        hide_gitignored = false,
+        -- hide_by_name = {
+        --   ".github",
+        --   ".gitignore",
+        --   "package-lock.json",
+        -- },
+        -- never_show = { ".git" },
       },
     },
   },
