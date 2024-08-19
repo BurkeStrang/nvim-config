@@ -11,20 +11,33 @@ return {
       -- opts.extensions = { telescope = false }
       opts.theme = {
         colors = {
-          fg = "#c5c8c6",
+
+          -- fg = "#D2B48C", -- Light tan
+          fg = "#FFFFCC", -- Light yellow
+          -- magenta = "#FF00FF", -- darker neon magenta
           blue = "#00FFD1", -- Neon green blue
           cyan = "#00FFFF", -- Neon cyan
           green = "#33FF33", -- Lighter green
-          orange = "#FFA500", -- Neon orange
-          yellow = "#FFFF00", -- Neon yellow
+          orange = "#FF7500", -- Neon orange
+          yellow = "#C0B000", -- Dimmer yellow
+          -- pink = "#FF6EC7", -- Neon pink
+          -- red = "#FF0000", -- Neon red
+          magenta = "#800080", -- darker magenta
+          pink = "#FF60CB", -- Light pink
+          purple = "#800080", -- Darker purple
         },
-        highlight = {
-        },
-        -- overrides = function(colors)
-        --   return {
-        --     LineNr = { fg = colors.cyan },
-        --   }
-        -- end,
+        highlight = {},
+        overrides = function(colors)
+          return {
+            Number = { fg = colors.yellow },
+            Boolean = { fg = colors.red },
+            Type = { fg = colors.blue },
+            Operator = { fg = colors.pink },
+            Keyword = { fg = colors.orange },
+            Identifier = { fg = colors.fg },
+            Delimiter = { fg = colors.pink },
+          }
+        end,
       }
       return opts -- Return the modified opts
     end,
@@ -48,7 +61,7 @@ return {
       vim.o.termguicolors = true
     end,
     opts = {
-      integration = { lualine = {enabled = false} },
+      integration = { lualine = { enabled = false } },
       -- Warn if any required option above is missing. May emit false positives
       -- if some other plugin modifies them, which in that case you can just
       -- ignore. Feel free to remove this line after you've gotten Modicator to
