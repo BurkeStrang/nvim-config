@@ -17,9 +17,9 @@ return {
           -- magenta = "#FF00FF", -- darker neon magenta
           blue = "#00FFD1", -- Neon green blue
           cyan = "#00FFFF", -- Neon cyan
-          green = "#33FF33", -- Lighter green
+          green = "#00cc00",
           orange = "#FF7500", -- Neon orange
-          yellow = "#C0B000", -- Dimmer yellow
+          yellow = "#99CC00",
           -- pink = "#FF6EC7", -- Neon pink
           -- red = "#FF0000", -- Neon red
           magenta = "#800080", -- darker magenta
