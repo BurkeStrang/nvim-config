@@ -15,19 +15,20 @@ keymap.set("n", "<leader>z", ":Zen<CR>", opt) -- ZenMode
 keymap.set("n", "<leader>ch", ":Cheatsheet<CR>", opt)
 
 -- Function to toggle line numbers
-function ToggleLineNumbers()
-  if vim.wo.number and vim.wo.relativenumber then
-    vim.wo.number = true
-    vim.wo.relativenumber = false
-  elseif vim.wo.number then
-    vim.wo.relativenumber = true
-  else
-    vim.wo.number = true
-  end
-end
+-- function ToggleLineNumbers()
+--   if vim.wo.number and vim.wo.relativenumber then
+--     vim.wo.number = true
+--     vim.wo.relativenumber = false
+--   elseif vim.wo.number then
+--     vim.wo.relativenumber = true
+--   else
+--     vim.wo.number = true
+--   end
+-- end
 
 -- Keymap to toggle line numbers
-keymap.set("n", "<leader>tl", ":lua ToggleLineNumbers()<CR>", opt)
+-- keymap.set("n", "<leader>tl", ":lua ToggleLineNumbers()<CR>", opt)
+-- this is already done in lazyvim
 
 --floaterm
 keymap.set("n","<leader>fts",":FloatermNew<CR>",opt)
