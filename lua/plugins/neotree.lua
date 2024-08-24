@@ -2,6 +2,12 @@ return {
   "neo-tree.nvim",
   opts = {
     filesystem = {
+      window = {
+        position = "right",
+        mappings = {
+          ["Y"] = "none",
+        },
+      },
       -- window = {
       --   mappings = {
       --     ["p"] = "image_wezterm",

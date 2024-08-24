@@ -58,6 +58,7 @@ return {
       ---@type lspconfig.options
       servers = {
         bicep = {},
+        gopls = {},
         jsonls = {},
         lua_ls = {
           -- mason = false, -- set to false if you don't want this server to be installed with mason
@@ -90,21 +91,7 @@ return {
             },
           },
         },
-        rust_analyzer = {
-          settings = {
-            ["rust-analyzer"] = {
-              checkOnSave = {
-                command = "clippy",
-              },
-              cargo = {
-                loadOutDirsFromCheck = true,
-              },
-              procMacro = {
-                enable = true,
-              },
-            },
-          },
-        },
+        rust_analyzer = {},
         pyright = {},
         -- cssls = {},
         jdtls = {},

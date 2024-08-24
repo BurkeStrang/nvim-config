@@ -22,9 +22,10 @@ return {
           yellow = "#99CC00",
           -- pink = "#FF6EC7", -- Neon pink
           -- red = "#FF0000", -- Neon red
-          magenta = "#800080", -- darker magenta
-          pink = "#FF60CB", -- Light pink
-          purple = "#800080", -- Darker purple
+          magenta = "#FF00FF", -- Brighter magenta
+          -- pink = "#FF60CB", -- Light pink
+          pink = "#FF80DB", -- Lighter pink
+          purple = "#9932CC", -- Brighter purple
         },
         highlight = {},
         overrides = function(colors)

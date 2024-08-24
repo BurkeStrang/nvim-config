@@ -3,7 +3,7 @@ return {
   lazy = false, -- As https://github.com/nvimdev/dashboard-nvim/pull/450, dashboard-nvim shouldn't be lazy-loaded to properly handle stdin.
   opts = function()
     local logo =
-      "\n\n\n\n\n\nIt's not at all important to get it right the first time.\n\nIt's vitally important to get it right the last time.\n\n~ Kent Beck\n\n\n"
+      '\n\n\n\n\n\n Programming is the art of telling another human \n\n being what one wants the computer to do \n\n~ Donlad Knuth\n\n\n'
 
     local opts = {
       theme = "doom",
