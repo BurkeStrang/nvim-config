@@ -13,7 +13,8 @@ return {
         colors = {
 
           -- fg = "#D2B48C", -- Light tan
-          fg = "#FFFFCC", -- Light yellow
+          -- fg = "#FFFFAA", -- Light yellow
+          fg = "#BFE0F0",
           -- magenta = "#FF00FF", -- darker neon magenta
           blue = "#00FFD1", -- Neon green blue
           cyan = "#00FFFF", -- Neon cyan
@@ -21,7 +22,7 @@ return {
           orange = "#FF7500", -- Neon orange
           yellow = "#99CC00",
           -- pink = "#FF6EC7", -- Neon pink
-          -- red = "#FF0000", -- Neon red
+          red = "#a82828", -- Neon red
           magenta = "#FF00FF", -- Brighter magenta
           -- pink = "#FF60CB", -- Light pink
           pink = "#FF80DB", -- Lighter pink
@@ -31,7 +32,7 @@ return {
         overrides = function(colors)
           return {
             Number = { fg = colors.yellow },
-            Boolean = { fg = colors.red },
+            Boolean = { fg = colors.yellow },
             Type = { fg = colors.blue },
             Operator = { fg = colors.pink },
             Keyword = { fg = colors.orange },

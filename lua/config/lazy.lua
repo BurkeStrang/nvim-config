@@ -50,4 +50,4 @@ require("lazy").setup({
   },
 })
 
-vim.cmd("highlight Visual ctermbg=0 guibg=#6441A5")
+-- vim.cmd("highlight Visual ctermbg=0 guibg=#1d1b21")
