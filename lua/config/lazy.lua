@@ -14,6 +14,11 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.filetype.add({ extension = { props = "xml" } })
+vim.filetype.add({ extension = { sln = "xml" } })
+vim.filetype.add({ extension = { nswag = "json" } })
+vim.filetype.add({ extension = { http = "http" } })
+
 
 require("lazy").setup({
   spec = {

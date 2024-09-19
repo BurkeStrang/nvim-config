@@ -38,6 +38,7 @@ return {
       -- Be aware that you also will need to properly configure your LSP server to
       -- provide the code lenses.
       codelens = {
+        -- this is annyoing it's always flickering
         enabled = false,
       },
       -- Enable lsp cursor word highlighting
@@ -91,8 +92,19 @@ return {
             },
           },
         },
+        pylsp = {},
+        -- ruff_lsp = {},
         rust_analyzer = {},
-        pyright = {},
+        -- pyright = {
+        --   settings = {
+        --     python = {
+        --       analysis = {
+        --         autoSearchPaths = true,
+        --         useLibraryCodeForTypes = true,
+        --       },
+        --     },
+        --   },
+        -- },
         -- cssls = {},
         jdtls = {},
         tailwindcss = {
@@ -151,6 +163,25 @@ return {
             --     - `cmd`
             --     - `root_dir`
             --     - `on_init`
+            settings = {
+              ["csharp|inlay_hints"] = {
+                csharp_enable_inlay_hints_for_implicit_object_creation = false,
+                csharp_enable_inlay_hints_for_implicit_variable_types = true,
+                csharp_enable_inlay_hints_for_lambda_parameter_types = false,
+                csharp_enable_inlay_hints_for_types = false,
+                dotnet_enable_inlay_hints_for_indexer_parameters = false,
+                dotnet_enable_inlay_hints_for_literal_parameters = false,
+                dotnet_enable_inlay_hints_for_object_creation_parameters = false,
+                dotnet_enable_inlay_hints_for_other_parameters = false,
+                dotnet_enable_inlay_hints_for_parameters = true,
+                dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = false,
+                dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = false,
+                dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = false,
+              },
+              ["csharp|code_lens"] = {
+                dotnet_enable_references_code_lens = false,
+              },
+            },
           },
           exe = {
             "dotnet",
