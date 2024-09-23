@@ -17,7 +17,7 @@ return {
   {
     "rcarriga/nvim-notify",
     opts = {
-      timeout = 5000,
+      timeout = 2000,
       render = "compact",
       -- max_height = function()
       --   return math.floor(vim.o.lines * 0.8)

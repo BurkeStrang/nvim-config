@@ -14,7 +14,8 @@ return {
 
           -- fg = "#D2B48C", -- Light tan
           -- fg = "#FFFFAA", -- Light yellow
-          fg = "#BFE0F0",
+          fg = "#AFA0F0", -- Slightly more blue
+          -- fg = "#BFE0F0",
           -- magenta = "#FF00FF", -- darker neon magenta
           blue = "#00FFD1", -- Neon green blue
           cyan = "#00FFFF", -- Neon cyan
