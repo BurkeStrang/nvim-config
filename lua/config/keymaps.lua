@@ -14,13 +14,19 @@ keymap.set("n", "<leader>z", ":Zen<CR>", opt) -- ZenMode
 
 keymap.set("n", "<leader>ch", ":Cheatsheet<CR>", opt)
 
+
+keymap.set("n", "<leader>dd", function()
+  if vim.wo.diff then
+    vim.cmd("windo diffoff")
+  else
+    vim.cmd("windo diffthis")
+  end
+end, opt)
+
+
 -- Function to toggle line numbers
 -- function ToggleLineNumbers()
---   if vim.wo.number and vim.wo.relativenumber then
---     vim.wo.number = true
---     vim.wo.relativenumber = false
---   elseif vim.wo.number then
---     vim.wo.relativenumber = true
+--   if vim.wo.number and vim.wo.relativenumber the-     vim.wo.relativenumber = true
 --   else
 --     vim.wo.number = true
 --   end

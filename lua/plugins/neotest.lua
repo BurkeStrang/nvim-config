@@ -8,13 +8,13 @@ return {
       "nvim-neotest/neotest-python",
       "nvim-neotest/neotest-plenary",
       "nvim-neotest/neotest-jest",
-      "Issafalcon/neotest-dotnet",
+      "BurkeStrang/neotest-dotnet",
       -- { dir = "~/repos/neotest-dotnet" },
     },
     config = function()
       local neotest = require("neotest")
       neotest.setup({
-        -- log_level = , -- For verbose logs
+        -- log_level = vim.log.levels.DEBUG,
         adapters = {
           require("neotest-python")({
             dap = { justMyCode = false },

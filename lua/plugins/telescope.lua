@@ -1,10 +1,10 @@
 return {
-  -- Add Telescope and its dependencies
+
   {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
-      -- Add a keymap to browse user secret files
+
       {
         "<leader>gu",
         function()
@@ -13,20 +13,46 @@ return {
         desc = "Select User Secret",
       },
     },
-    -- Ensure Telescope is loaded
+
     config = function()
       require("telescope").setup({
         defaults = {
           layout_strategy = "horizontal",
-          layout_config = { prompt_position = "top" },
+          layout_config = {
+            prompt_position = "top",
+            horizontal = {
+              width = 0.99,
+              height = 0.99,
+              preview_width = 0.5,
+            },
+          },
           sorting_strategy = "ascending",
           winblend = 0,
+        },
+        pickers = {
+          live_grep = {
+            layout_config = {
+              horizontal = {
+                width = 0.99,
+                height = 0.99,
+                preview_width = 0.5,
+              },
+            },
+          },
+          grep_string = {
+            layout_config = {
+              horizontal = {
+                width = 0.99,
+                height = 0.99,
+                preview_width = 0.5,
+              },
+            },
+          },
         },
       })
     end,
   },
 
-  -- Add Telescope FZF Native extension
   {
     "nvim-telescope/telescope-fzf-native.nvim",
     build = "make",
