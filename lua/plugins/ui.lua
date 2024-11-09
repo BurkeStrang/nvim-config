@@ -39,11 +39,14 @@ return {
       require("incline").setup({
         highlight = {
           groups = {
-            InclineNormal = { guibg = "#1e1e1e", guifg = "#AFA0F0" },
-            InclineNormalNC = { guibg = "#1e1e1e", guifg = "#AFA0F0" },
+            InclineNormal = { guifg = "#AFA0F0" },
+            InclineNormalNC = { guifg = "#AFA0F0" },
           },
         },
-        window = { margin = { vertical = 0, horizontal = 1 }, placement = { vertical = "bottom", horizontal = "right" } },
+        window = {
+          margin = { vertical = 0, horizontal = 1 },
+          placement = { vertical = "bottom", horizontal = "right" },
+        },
         hide = { cursorline = true },
         render = function(props)
           local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
@@ -53,7 +56,15 @@ return {
 
           local icon, color = require("nvim-web-devicons").get_icon_color(filename)
 
-          return { { icon, guifg = color }, { " " }, { filename } }
+          local branch = require("plenary.job")
+            :new({
+              command = "git",
+              args = { "rev-parse", "--abbrev-ref", "HEAD" },
+              cwd = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":p:h"),
+            })
+            :sync()[1]
+
+          return { { branch, guifg = "#AA1188" }, { "  " }, { icon, guifg = color }, { " " }, { filename } }
         end,
       })
     end,

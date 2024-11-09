@@ -58,6 +58,7 @@ return {
       -- LSP Server Settings
       ---@type lspconfig.options
       servers = {
+        angularls = {},
         bicep = {},
         gopls = {},
         jsonls = {},
@@ -181,11 +182,21 @@ return {
               ["csharp|code_lens"] = {
                 dotnet_enable_references_code_lens = false,
               },
+              ["csharp|completion"] = {
+                dotnet_provide_regex_completions = true,
+                dotnet_show_completion_items_from_unimported_namespaces = true,
+                dotnet_show_name_completion_suggestions = true,
+              },
             },
           },
           exe = {
             "dotnet",
             vim.fs.joinpath(vim.fn.stdpath("data"), "roslyn", "Microsoft.CodeAnalysis.LanguageServer.dll"),
+          },
+
+          args = {
+            "--logLevel=Information",
+            "--extensionLogDirectory=" .. vim.fs.dirname(vim.lsp.get_log_path()),
           },
           -- NOTE: Set `filewatching` to false if you experience performance problems.
           -- Defaults to true, since turning it off is a hack.

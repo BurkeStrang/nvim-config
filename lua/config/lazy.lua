@@ -118,4 +118,10 @@ vim.opt.foldmarker = { "#region", "#endregion" }
 --   cache_enabled = 0,
 -- }
 
--- vim.cmd("highlight Visual ctermbg=0 guibg=#1d1b21")
+vim.cmd("highlight Visual ctermbg=0 guibg=#2e3440")
+-- Set cursor color and style
+vim.cmd("highlight Cursor guifg=black guibg=grey")
+vim.opt.guicursor = "n-v-c:block-Cursor,i-ci-ve:ver25-CursorInsert,r-cr-o:hor20"
+-- Enable and set the current line color
+vim.opt.cursorline = true
+vim.cmd("highlight CursorLine guibg=#1d1b21")  -- Adjust color to match your theme

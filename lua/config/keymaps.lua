@@ -41,3 +41,6 @@ keymap.set("n","<leader>fts",":FloatermNew<CR>",opt)
 keymap.set("n","<leader>ftt",":FloatermToggle<CR>",opt)
 keymap.set("n","<leader>ftn", ":FloatermNext<CR>",opt)
 keymap.set("n","<leader>ftp", ":FloatermPrev<CR>",opt)
+
+-- keymap.set("n","<C-j>", "10jzz",opt)
+-- keymap.set("n","<C-k>", "10kzz",opt)
