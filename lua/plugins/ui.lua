@@ -56,6 +56,18 @@ return {
 
           local icon, color = require("nvim-web-devicons").get_icon_color(filename)
 
+          -- if not a git repository, return the filename
+          if not require("plenary.job")
+            :new({
+              command = "git",
+              args = { "rev-parse", "--is-inside-work-tree" },
+              cwd = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":p:h"),
+            })
+            :sync()[1]
+            then
+            return { { icon, guifg = color }, { " " }, { filename } }
+          end
+
           local branch = require("plenary.job")
             :new({
               command = "git",
