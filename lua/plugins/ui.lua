@@ -64,7 +64,28 @@ return {
             })
             :sync()[1]
 
-          return { { branch, guifg = "#AA1188" }, { "  " }, { icon, guifg = color }, { " " }, { filename } }
+          local remote_url = require("plenary.job")
+            :new({
+              command = "git",
+              args = { "remote", "get-url", "origin" },
+              cwd = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":p:h"),
+            })
+            :sync()[1]
+
+          local repo_symbol = " "
+          if remote_url:find("github.com") then
+            repo_symbol = " " -- GitHub symbol
+          elseif remote_url:find("dev.azure.com") then
+            repo_symbol = " " -- Azure DevOps symbol
+          end
+
+          return {
+            { repo_symbol .. branch, guifg = "#AA1188" },
+            { "  " },
+            { icon, guifg = color },
+            { " " },
+            { filename },
+          }
         end,
       })
     end,
