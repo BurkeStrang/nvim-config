@@ -56,34 +56,30 @@ return {
 
           local icon, color = require("nvim-web-devicons").get_icon_color(filename)
 
-          -- if not a git repository, return the filename
-          if not require("plenary.job")
-            :new({
-              command = "git",
-              args = { "rev-parse", "--is-inside-work-tree" },
-              cwd = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":p:h"),
-            })
-            :sync()[1]
-            then
+          -- Check if inside a git repo and cache the result
+          local is_git_repo = vim.b[props.buf].is_git_repo
+          if is_git_repo == nil then
+            is_git_repo = vim.fn.systemlist("git rev-parse --is-inside-work-tree")[1] == "true"
+            vim.b[props.buf].is_git_repo = is_git_repo
+          end
+          if not is_git_repo then
             return { { icon, guifg = color }, { " " }, { filename } }
           end
 
-          local branch = require("plenary.job")
-            :new({
-              command = "git",
-              args = { "rev-parse", "--abbrev-ref", "HEAD" },
-              cwd = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":p:h"),
-            })
-            :sync()[1]
+          -- Cache branch name and remote URL for each buffer to avoid repeated calls
+          local branch = vim.b[props.buf].branch
+          if not branch then
+            branch = vim.fn.systemlist("git rev-parse --abbrev-ref HEAD")[1] or "unknown"
+            vim.b[props.buf].branch = branch
+          end
 
-          local remote_url = require("plenary.job")
-            :new({
-              command = "git",
-              args = { "remote", "get-url", "origin" },
-              cwd = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":p:h"),
-            })
-            :sync()[1]
+          local remote_url = vim.b[props.buf].remote_url
+          if not remote_url then
+            remote_url = vim.fn.systemlist("git remote get-url origin")[1] or ""
+            vim.b[props.buf].remote_url = remote_url
+          end
 
+          -- Determine repository symbol based on remote URL
           local repo_symbol = " "
           if remote_url:find("github.com") then
             repo_symbol = " " -- GitHub symbol
@@ -102,7 +98,6 @@ return {
       })
     end,
   },
-
   -- bufferline
   {
     "akinsho/bufferline.nvim",
