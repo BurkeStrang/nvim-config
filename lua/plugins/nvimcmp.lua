@@ -29,18 +29,18 @@ return {
   },
   ---@param opts cmp.ConfigSchema
   opts = function(_, opts)
-    vim.api.nvim_set_hl(0, "PopMenu", { bg = "#1d1b21", blend = 0 })
-    local cmp = require("cmp")
-    local win_opt = {
-      col_offset = 0,
-      side_padding = 1,
-      winhighlight = "Normal:PopMenu,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-      border = "",
-    }
-    opts.window = {
-      completion = cmp.config.window.bordered(win_opt),
-      documentation = cmp.config.window.bordered(win_opt),
-    }
+    -- vim.api.nvim_set_hl(0, "PopMenu", { bg = "#1d1b21", blend = 0 })
+    -- local cmp = require("cmp")
+    -- local win_opt = {
+    --   col_offset = 0,
+    --   side_padding = 1,
+    --   winhighlight = "Normal:PopMenu,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+    --   border = "",
+    -- }
+    -- opts.window = {
+    --   completion = cmp.config.window.bordered(win_opt),
+    --   documentation = cmp.config.window.bordered(win_opt),
+    -- }
     opts.experimental = {
       ghost_text = false,
     }
