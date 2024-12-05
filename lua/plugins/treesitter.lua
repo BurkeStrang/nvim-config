@@ -24,7 +24,7 @@ return {
       "bash",
       "bicep",
       "c",
-      "c_sharp", -- Ensure C# parser is installed
+      "c_sharp",
       "diff",
       "go",
       "html",
@@ -63,18 +63,51 @@ return {
     textobjects = {
       move = {
         enable = true,
-        goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
-        goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
-        goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
-        goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
+        goto_next_start = {
+          ["]f"] = "@function.outer",
+          ["]c"] = "@class.outer",
+          ["]a"] = "@parameter.inner",
+        },
+        goto_next_end = {
+          ["]F"] = "@function.outer",
+          ["]C"] = "@class.outer",
+          ["]A"] = "@parameter.inner",
+        },
+        goto_previous_start = {
+          ["[f"] = "@function.outer",
+          ["[c"] = "@class.outer",
+          ["[a"] = "@parameter.inner",
+        },
+        goto_previous_end = {
+          ["[F"] = "@function.outer",
+          ["[C"] = "@class.outer",
+          ["[A"] = "@parameter.inner",
+        },
       },
     },
   },
   config = function(_, opts)
+    -- Add custom Razor parser configuration before setting up Treesitter
+    local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+    parser_config.razor = {
+      install_info = {
+        -- url = '~/code/tree-sitter-razor', -- local path or git repo
+        url = "https://github.com/tris203/tree-sitter-razor",
+        files = { "src/parser.c", "src/scanner.c" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
+        -- optional entries:
+        branch = "main", -- default branch in case of git repo if different from master
+        generate_requires_npm = false, -- if stand-alone parser without npm dependencies
+        requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+      },
+      filetype = "razor", -- if filetype does not match the parser name
+    }
+    table.insert(opts.ensure_installed, "razor")
+
     if type(opts.ensure_installed) == "table" then
       opts.ensure_installed = LazyVim.dedup(opts.ensure_installed)
     end
+    vim.treesitter.language.register("razor", "razor")
+
     require("nvim-treesitter.configs").setup(opts)
-    -- vim.treesitter.language.register("c_sharp","cs")
   end,
 }

@@ -7,9 +7,53 @@ return {
     "mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "seblj/roslyn.nvim",
+    {
+      "tris203/rzls.nvim",
+      branch = "razor_ts",
+      -- opts = {
+      --   on_attach = require("lsp").on_attach,
+      --   capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+      -- },
+    },
   },
   ---@class PluginLspOpts
   opts = function()
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+
+    -- Define the on_attach function
+    local function on_attach(client, bufnr)
+      -- Enable completion triggered by <c-x><c-o>
+      -- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+      --
+      -- -- Mappings.
+      -- -- See `:help vim.lsp.*` for documentation on any of the below functions
+      -- local opts = { noremap = true, silent = true }
+      --
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<Cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<Cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>wa", "<Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>wr", "<Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
+      -- vim.api.nvim_buf_set_keymap(
+      --   bufnr,
+      --   "n",
+      --   "<space>wl",
+      --   "<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
+      --   opts
+      -- )
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>D", "<Cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>rn", "<Cmd>lua vim.lsp.buf.rename()<CR>", opts)
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>ca", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<Cmd>lua vim.lsp.buf.references()<CR>", opts)
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>e", "<Cmd>lua vim.diagnostic.open_float()<CR>", opts)
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "[d", "<Cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", "<Cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>q", "<Cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>f", "<Cmd>lua vim.lsp.buf.format { async = true }<CR>", opts)
+    end
     return {
       -- options for vim.diagnostic.config()
       ---@type vim.diagnostic.Opts
@@ -157,17 +201,36 @@ return {
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
         require("roslyn").setup({
+          args = {
+            "--logLevel=Information",
+            "--extensionLogDirectory=" .. vim.fs.dirname(vim.lsp.get_log_path()),
+            "--razorSourceGenerator=" .. vim.fs.joinpath(
+              vim.fn.stdpath("data") --[[@as string]],
+              "mason",
+              "packages",
+              "roslyn",
+              "libexec",
+              "Microsoft.CodeAnalysis.Razor.Compiler.dll"
+            ),
+            "--razorDesignTimePath=" .. vim.fs.joinpath(
+              vim.fn.stdpath("data") --[[@as string]],
+              "mason",
+              "packages",
+              "rzls",
+              "libexec",
+              "Targets",
+              "Microsoft.NET.Sdk.Razor.DesignTime.targets"
+            ),
+          },
           config = {
-            -- Here you can pass in any options that that you would like to pass to `vim.lsp.start`
-            -- The only options that I explicitly override are, which means won't have any effect of setting here are:
-            --     - `name`
-            --     - `cmd`
-            --     - `root_dir`
-            --     - `on_init`
+            on_attach = on_attach,
+            capabilities = capabilities,
+            handlers = require("rzls.roslyn_handlers"),
             settings = {
               ["csharp|inlay_hints"] = {
                 csharp_enable_inlay_hints_for_implicit_object_creation = false,
                 csharp_enable_inlay_hints_for_implicit_variable_types = false,
+
                 csharp_enable_inlay_hints_for_lambda_parameter_types = false,
                 csharp_enable_inlay_hints_for_types = false,
                 dotnet_enable_inlay_hints_for_indexer_parameters = false,
@@ -182,41 +245,9 @@ return {
               ["csharp|code_lens"] = {
                 dotnet_enable_references_code_lens = false,
               },
-              ["csharp|completion"] = {
-                dotnet_provide_regex_completions = true,
-                dotnet_show_completion_items_from_unimported_namespaces = true,
-                dotnet_show_name_completion_suggestions = true,
-              },
             },
           },
-          exe = {
-            "dotnet",
-            vim.fs.joinpath(vim.fn.stdpath("data"), "roslyn", "Microsoft.CodeAnalysis.LanguageServer.dll"),
-          },
-
-          args = {
-            "--logLevel=Information",
-            "--extensionLogDirectory=" .. vim.fs.dirname(vim.lsp.get_log_path()),
-          },
-          -- NOTE: Set `filewatching` to false if you experience performance problems.
-          -- Defaults to true, since turning it off is a hack.
-          -- If you notice that the server is _super_ slow, it is probably because of file watching
-          -- I noticed that neovim became super unresponsive on some large codebases, and that was because
-          -- it schedules the file watching on the event loop.
-          -- This issue went away by disabling that capability. However, roslyn will fallback to its own
-          -- file watching, which can make the server super slow to initialize.
-          -- Setting this option to false will indicate to the server that neovim will do the file watching.
-          -- However, in `hacks.lua` I will also just don't start off any watchers, which seems to make the server
-          -- a lot faster to initialize.
-          filewatching = true,
         }),
-        -- example to setup with typescript.nvim
-        -- tsserver = function(_, opts)
-        --   require("typescript").setup({ server = opts })
-        --   return true
-        -- end,
-        -- Specify * to use this function as a fallback for any server
-        -- ["*"] = function(server, opts) end,
       },
     }
   end,

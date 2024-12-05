@@ -18,6 +18,8 @@ vim.filetype.add({ extension = { props = "xml" } })
 vim.filetype.add({ extension = { sln = "xml" } })
 vim.filetype.add({ extension = { nswag = "json" } })
 vim.filetype.add({ extension = { http = "http" } })
+vim.filetype.add({ extension = { razor = "razor"}})
+vim.filetype.add({ extension = { cshtml = "razor" } })
 -- vim.filetype.add({ extension = { cs = "csharp" } })
 
 -- remove the status line and lines at the bottom
