@@ -7,42 +7,33 @@ return {
       opts.transparent = true
       opts.italic_comments = true
       opts.borderless_telescope = false
-      -- opts.cache = true
-      -- opts.extensions = { telescope = false }
       opts.theme = {
         colors = {
-
-          -- fg = "#D2B48C", -- Light tan
-          -- fg = "#FFFFAA", -- Light yellow
-          fg = "#AFA0F0", -- Slightly more blue
-          -- fg = "#BFE0F0",
-          -- magenta = "#FF00FF", -- darker neon magenta
-          blue = "#00C0CF", -- Dimmed neon green blue
-          cyan = "#00FFFa", -- Neon cyan
-          green = "#00cc90",
-          orange = "#be87aa",
-          yellow = "#9eCF9A",
-          -- pink = "#FF6EC7", -- Neon pink
-          red = "#a82828", -- Neon red
-          -- magenta = "#FF00FF", -- Brighter magenta
-          -- pink = "#FF60CB", -- Light pink
-          pink = "#FF80DB", -- Lighter pink
-          purple = "#9932CC", -- Brighter purple
+          fg = "#6C9EC8",
+          blue = "#0099CC",
+          cyan = "#20B2AA",
+          green = "#1CA191",
+          orange = "#009090",
+          yellow = "#AD9111",
+          pink = "#8F65B4",
+          red = "#AD2222",
+          purple = "#9370DB",
+          magenta = "#4C8D8B",
         },
         highlight = {},
         overrides = function(colors)
           return {
-            Number = { fg = colors.magenta },
-            Boolean = { fg = colors.magenta },
+            Number = { fg = colors.purple },
+            Boolean = { fg = colors.pink },
             Type = { fg = colors.blue },
-            Operator = { fg = colors.pink },
+            Operator = { fg = colors.orange },
             Keyword = { fg = colors.orange },
-            Identifier = { fg = colors.fg },
-            Delimiter = { fg = colors.pink },
+            Identifier = { fg = colors.blue },
+            Delimiter = { fg = colors.magenta },
           }
         end,
       }
-      return opts -- Return the modified opts
+      return opts
     end,
   },
   {
@@ -51,24 +42,17 @@ return {
       colorscheme = "cyberdream",
     },
   },
-
-  -- modicator (auto color line number based on vim mode)
   {
     "mawkler/modicator.nvim",
     lazy = false,
-    dependencies = "scottmckendry/cyberdream.nvim", -- Add your colorscheme plugin here
+    dependencies = "scottmckendry/cyberdream.nvim",
     init = function()
-      -- These are required for Modicator to work
       vim.o.cursorline = true
       vim.o.number = true
       vim.o.termguicolors = true
     end,
     opts = {
       integration = { lualine = { enabled = false } },
-      -- Warn if any required option above is missing. May emit false positives
-      -- if some other plugin modifies them, which in that case you can just
-      -- ignore. Feel free to remove this line after you've gotten Modicator to
-      -- work properly.
       show_warnings = false,
     },
   },

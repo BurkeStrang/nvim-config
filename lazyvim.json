@@ -15,11 +15,11 @@
     "lazyvim.plugins.extras.lang.sql",
     "lazyvim.plugins.extras.lang.toml",
     "lazyvim.plugins.extras.lang.typescript",
-    "lazyvim.plugins.extras.test.core",
-    "lazyvim.plugins.extras.ui.dashboard-nvim"
+    "lazyvim.plugins.extras.test.core"
   ],
   "news": {
-    "NEWS.md": "7429"
+    "NEWS.md": "10960"
   },
   "version": 7
 }
+

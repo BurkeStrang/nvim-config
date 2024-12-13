@@ -10,7 +10,12 @@ return {
       },
       sections = {
         lualine_a = {}, -- No sections in 'a'
-        lualine_b = { "branch" }, -- Display branch name
+        lualine_b = {
+          {
+            "branch",
+            color = { fg = "#1CA191", bg = "NONE" }, -- Set the color of the branch
+          },
+        },
         lualine_c = {}, -- No sections in 'c'
         lualine_x = {}, -- No sections in 'x'
         lualine_y = {}, -- No sections in 'y'
